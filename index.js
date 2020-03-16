@@ -5,6 +5,7 @@ const core = require('@actions/core')
 const cliConfigPath = `${process.env.HOME}/.jira.d/config.yml`
 const configPath = `${process.env.HOME}/jira/config.yml`
 const Action = require('./action')
+
 const githubToken = process.env.GITHUB_TOKEN
 
 // eslint-disable-next-line import/no-dynamic-require
@@ -24,7 +25,7 @@ async function exec () {
       console.log(`Created issues: ${result.issues}`)
 
       // Produce a well-formed JSON array of all newly created issue keys
-      core.setOutput("issues", JSON.stringify(result.issues, null, 4))
+      core.setOutput('issues', JSON.stringify(result.issues, null, 4))
 
       return
     }
@@ -40,7 +41,7 @@ function parseArgs () {
   return {
     project: core.getInput('project'),
     issuetype: core.getInput('issuetype'),
-    description: core.getInput('description')
+    description: core.getInput('description'),
   }
 }
 

@@ -108,7 +108,8 @@ class Jira {
         new Error('Jira API error'),
         state,
         fields,
-        { jiraError: state.res.body.errors })
+        { jiraError: state.res.body.errors }
+      )
     }
 
     return state.res.body

@@ -12,7 +12,7 @@ module.exports = class {
     })
 
     this.GitHub = new GitHub({
-      token: githubToken
+      token: githubToken,
     })
 
     this.config = config
@@ -115,29 +115,30 @@ module.exports = class {
     this.argv.description = descriptionTmpl({ event: this.githubEvent })
   }
 
-  async findTodoInCommits(repo, commits) {
+  async findTodoInCommits (repo, commits) {
     return Promise.all(commits.map(async (c) => {
       const res = await this.GitHub.getCommitDiff(repo.full_name, c.id)
       const rx = /^\+.*(?:\/\/|#)\s+TODO:(.*)$/gm
+
       return getMatches(res, rx, 1)
         .map(_.trim)
         .filter(Boolean)
-        .map((s) => {
-          return {
-            commitUrl: c.url,
-            summary: s,
-          }
-        })
+        .map(s => ({
+          commitUrl: c.url,
+          summary: s,
+        }))
     }))
   }
 }
 
-function getMatches(string, regex, index) {
+function getMatches (string, regex, index) {
   index || (index = 1)
-  var matches = []
-  var match
+  const matches = []
+  let match
+
   while (match = regex.exec(string)) {
     matches.push(match[index])
   }
+
   return matches
 }

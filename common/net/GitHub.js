@@ -1,4 +1,5 @@
 const { get } = require('lodash')
+const fetchreq = require('node-fetch')
 
 const serviceName = 'github'
 const { format } = require('url')
@@ -18,6 +19,11 @@ class GitHub {
           Accept: 'application/vnd.github.v3.diff',
         },
       })
+  }
+
+  async getCommittor (repo, commitId) {
+    const commitRes = this.fetch('getCommittor', { pathname: `/repos/${repo}/commits/${commitId}` })
+    return commitRes.committor.name
   }
 
   async fetch (apiMethodName,

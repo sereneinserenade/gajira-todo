@@ -92,7 +92,9 @@ module.exports = class {
 
         return acc
       }, {
-        fields: {},
+        fields: {
+          'Created By': `${this.GitHub.getCommittor()}`,
+        },
       })
 
       return (await this.Jira.createIssue(payload)).key

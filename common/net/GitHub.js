@@ -23,6 +23,7 @@ class GitHub {
 
   async getCommittor (repo, commitId) {
     const commitRes = this.fetch('getCommittor', { pathname: `/repos/${repo}/commits/${commitId}` })
+    console.log(commitRes.committor.name)
     return commitRes.committor.name
   }
 

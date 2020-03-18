@@ -21,11 +21,11 @@ class GitHub {
       })
   }
 
-  async getCommittor (repo, commitId) {
+  async getCommittor (commitURL) {
     console.log("___________________________________________")
-    const url = `https://api.github.com/repos/${repo}/commits/${commitId}`
-    console.log(url)
-    const res = await fetch()
+    // const url = `https://api.github.com/repos/${repo}/commits/${commitId}`
+    console.log(commitURL)
+    const res = await fetch(commitURL)
     console.log(res)
     const json = await res.json()
     console.log(json)

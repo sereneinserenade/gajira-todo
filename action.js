@@ -74,7 +74,8 @@ module.exports = class {
         value: summary,
       }]
 
-      argv.description = `Created by: ${this.GitHub.getCommittor()}`
+      argv.description = `Created by: ${this.GitHub.getCommittor(commitUrl)}`
+      console.log(argv.description)
 
       providedFields.push({
         key: 'description',

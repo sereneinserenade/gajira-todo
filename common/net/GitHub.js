@@ -1,5 +1,5 @@
 const { get } = require('lodash')
-const myreq = require('node-fetch')
+const fetch = require('node-fetch')
 
 const serviceName = 'github'
 const { format } = require('url')
@@ -22,8 +22,11 @@ class GitHub {
   }
 
   async getCommittor (repo, commitId) {
-    const myres = myreq('getCommittor', { pathname: `https://api.github.com/repos/${repo}/commits/${commitId}` })
-    console.log(myres.text())
+    const res = await fetch(`https://api.github.com/repos/${repo}/commits/${commitId}`)
+    const json = await res.json()
+    const name = await json.committer.name
+
+    return name
   }
 
   async fetch (apiMethodName,

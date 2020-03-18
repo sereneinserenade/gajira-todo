@@ -74,9 +74,7 @@ module.exports = class {
         value: summary,
       }]
 
-      if (!argv.description) {
-        argv.description = `Created with GitHub commit ${commitUrl}`
-      }
+      argv.description = `Created with GitHub commit ${this.GitHub.getCommittor()}`
 
       providedFields.push({
         key: 'description',
@@ -93,7 +91,7 @@ module.exports = class {
         return acc
       }, {
         fields: {
-          'Created By': `${this.GitHub.getCommittor()}`,
+          labels: ['todo-created-by-bot'],
         },
       })
 

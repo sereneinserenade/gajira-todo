@@ -24,6 +24,7 @@ class GitHub {
   async getCommittor (repo, commitId) {
     const res = await fetch(`https://api.github.com/repos/${repo}/commits/${commitId}`)
     const json = await res.json()
+    console.log(json)
     const name = json.committer.name
 
     return name

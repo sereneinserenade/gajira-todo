@@ -25,7 +25,9 @@ class GitHub {
     console.log("___________________________________________")
     // const url = `https://api.github.com/repos/${repo}/commits/${commitId}`
     console.log(commitURL)
-    const res = await fetch(commitURL)
+    const urlArray = commitURL.split("://")
+    const finalCommitURL = `${urlArray[0]}://api.${urlArray[1]}`
+    const res = await fetch(finalCommitURL)
     console.log(res)
     const json = await res.json()
     console.log(json)

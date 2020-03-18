@@ -13,16 +13,16 @@ class GitHub {
 
   async getCommitDiff (repo, commitId) {
     return this.fetch('getCommitDiff',
-      { pathname: `https://api.github.com/repos/${repo}/commits/${commitId}` },
+      { pathname: `/repos/${repo}/commits/${commitId}` },
       {
         headers: {
-          Accept: 'application/json',
+          Accept: 'application/vnd.github.v3.diff',
         },
       })
   }
 
   async getCommittor (repo, commitId) {
-    const myres = myreq('getCommittor', { pathname: `/repos/${repo}/commits/${commitId}` })
+    const myres = myreq('getCommittor', { pathname: `https://api.github.com/repos/${repo}/commits/${commitId}` })
     console.log(myres.text())
   }
 

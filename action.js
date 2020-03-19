@@ -125,11 +125,14 @@ module.exports = class {
       return getMatches(res, rx, 1)
         .map(_.trim)
         .filter(Boolean)
-        .map(s => ({
-          commitUrl: c.url,
-          summary: s,
-          description: `TODO: ${s} \n CommitURL: ${c.url} \\n Created by: ${c.committer.name} \\n Commit Message: ${c.message}`,
-        }))
+        .map((s) => {
+          this.argv.description = `TODO: ${s} \n CommitURL: ${c.url} \\n Created by: ${c.committer.name} \\n Commit Message: ${c.message}`
+
+          return {
+            commitUrl: c.url,
+            summary: s,
+          }
+        })
     }))
   }
 }

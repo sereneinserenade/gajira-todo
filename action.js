@@ -123,10 +123,9 @@ module.exports = class {
       const res = await this.GitHub.getCommitDiff(repo.full_name, c.id)
       console.log(`{${res}}`)
       const fileName = res.split('\n')[0].split('/')[res.split('\n')[0].split('/').length - 1]
-      console.log(fileName)
       const rx = /^\+.*(?:\/\/|#)\s+TODO:(.*)$/gm
 
-      this.argv.description = `Created by: ${c.committer.name}`
+      this.argv.description = `Created by: ${c.committer.name} in file "${fileName}"`
 
       return getMatches(res, rx, 1)
         .map(_.trim)

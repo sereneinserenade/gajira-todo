@@ -59,7 +59,8 @@ module.exports = class {
       return
     }
 
-    const repoName = githubEvent.repository.split('/')[1]
+    // const repoName = githubEvent.repository.split('/')[1]
+      console.log(githubEvent.repository)
 
     const issues = tasks.map(async ({ summary, commitUrl }) => {
       let providedFields = [{
@@ -77,7 +78,7 @@ module.exports = class {
         value: summary,
       }]
 
-      argv.description = `Created by: ${this.GitHub.getCommittor(commitUrl)}`
+      argv.description = `Created by: ${this.GitHub.getCommittor(commitUrl)} \n `
       console.log(argv.description)
 
       providedFields.push({

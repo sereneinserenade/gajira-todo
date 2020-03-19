@@ -121,11 +121,10 @@ module.exports = class {
   async findTodoInCommits (repo, commits) {
     return Promise.all(commits.map(async (c) => {
       const res = await this.GitHub.getCommitDiff(repo.full_name, c.id)
-      console.log(`{${res}}`)
-      const fileName = res.split('\n')[0].split('/')[res.split('\n')[0].split('/').length - 1]
+      // const fileName = res.split('\n')[0].split('/')[res.split('\n')[0].split('/').length - 1]
       const rx = /^\+.*(?:\/\/|#)\s+TODO:(.*)$/gm
 
-      this.argv.description = `Created by: ${c.committer.name} in file "${fileName}"`
+      this.argv.description = `CommitURL: ${c.url} \n Created by: ${c.committer.name} \n Commit Message: ${c.message}`
 
       return getMatches(res, rx, 1)
         .map(_.trim)

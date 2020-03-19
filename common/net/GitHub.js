@@ -21,7 +21,6 @@ class GitHub {
       })
   }
 
-
   async fetch (apiMethodName,
     { host, pathname, query },
     { method, body, headers = {} } = {}) {

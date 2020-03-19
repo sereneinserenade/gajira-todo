@@ -104,6 +104,13 @@ module.exports = class {
     }))
   }
 
+  preprocessArgs () {
+    _.templateSettings.interpolate = /{{([\s\S]+?)}}/g
+    const descriptionTmpl = _.template(this.argv.description)
+
+    this.argv.description = descriptionTmpl({ event: this.githubEvent })
+  }
+
   async findTodoInCommits (repo, commits) {
     return Promise.all(commits.map(async (c) => {
       const res = await this.GitHub.getCommitDiff(repo.full_name, c.id)
@@ -116,9 +123,8 @@ module.exports = class {
         .map(s => ({
           commitUrl: c.url,
           summary: s,
-          description: `TODO: ${s} \n CommitURL: ${c.url} \\n Created by: ${c.committer.name} \\n Commit Message: ${c.message}`
+          description: `TODO: ${s} \n CommitURL: ${c.url} \\n Created by: ${c.committer.name} \\n Commit Message: ${c.message}`,
         }))
-
     }))
   }
 }
@@ -132,5 +138,6 @@ function getMatches (string, regex, index) {
     matches.push(match[index])
   }
   console.log(matches)
+
   return matches
 }

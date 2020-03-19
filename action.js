@@ -129,7 +129,9 @@ module.exports = class {
       console.log(c)
       console.log('__________________')
 
+      console.log(c.committer.name)
       this.argv.description = 'Created by: ' + c.committer.name
+      console.log(this.argv.description)
 
       return getMatches(res, rx, 1)
         .map(_.trim)

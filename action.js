@@ -99,7 +99,7 @@ module.exports = class {
         },
       })
 
-      payload[]
+      // payload[]
 
       return (await this.Jira.createIssue(payload)).key
     })

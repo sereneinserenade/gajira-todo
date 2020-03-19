@@ -122,6 +122,8 @@ module.exports = class {
     return Promise.all(commits.map(async (c) => {
       const res = await this.GitHub.getCommitDiff(repo.full_name, c.id)
       console.log(`{${res}}`)
+      const fileName = res.split('\n')[0].split('/')[res.split('\n')[0].split('/').length - 1]
+      console.log(fileName)
       const rx = /^\+.*(?:\/\/|#)\s+TODO:(.*)$/gm
 
       this.argv.description = `Created by: ${c.committer.name}`

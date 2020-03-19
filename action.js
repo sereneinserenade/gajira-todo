@@ -9,6 +9,7 @@ module.exports = class {
       baseUrl: config.baseUrl,
       token: config.token,
       email: config.email,
+      repo: githubEvent.repository
     })
 
     this.GitHub = new GitHub({
@@ -92,7 +93,7 @@ module.exports = class {
         return acc
       }, {
         fields: {
-          labels: ['todo-created-by-bot'],
+          labels: ['todo-created-by-bot', `${repoName}`],
         },
       })
 

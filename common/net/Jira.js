@@ -5,10 +5,11 @@ const { format } = require('url')
 const client = require('./client')(serviceName)
 
 class Jira {
-  constructor ({ baseUrl, token, email }) {
+  constructor ({ baseUrl, token, email, repo }) {
     this.baseUrl = baseUrl
     this.token = token
     this.email = email
+    this.repo = repo
   }
 
   async getCreateMeta (query) {

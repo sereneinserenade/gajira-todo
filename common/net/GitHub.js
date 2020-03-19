@@ -12,6 +12,7 @@ class GitHub {
   }
 
   async getCommitDiff (repo, commitId) {
+    console.log(repo)
     return this.fetch('getCommitDiff',
       { pathname: `/repos/${repo}/commits/${commitId}` },
       {

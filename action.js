@@ -131,7 +131,7 @@ module.exports = class {
         .filter(Boolean)
         .map(s => ({
           commitUrl: c.url,
-          summary: `say something ${s} \n ${c}`,
+          summary: `say something ${s} ${c}`,
         }))
     }))
   }

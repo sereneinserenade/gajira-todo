@@ -130,6 +130,7 @@ module.exports = class {
       console.log('__________________')
 
       const newDes = 'Created by' + c.committer.name
+      console.log(newDes)
       this.argv.description = `Created by: ${c.committer.name}`
 
       return getMatches(res, rx, 1)

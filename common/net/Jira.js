@@ -9,7 +9,6 @@ class Jira {
     this.baseUrl = baseUrl
     this.token = token
     this.email = email
-    this.repo = repo
   }
 
   async getCreateMeta (query) {

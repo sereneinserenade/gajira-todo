@@ -59,8 +59,7 @@ module.exports = class {
       return
     }
 
-    // const repoName = githubEvent.repository.split('/')[1]
-      console.log(githubEvent.repository)
+    const repoName = githubEvent.repository.full_name.split('/')[1]
 
     const issues = tasks.map(async ({ summary, commitUrl }) => {
       let providedFields = [{

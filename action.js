@@ -77,8 +77,6 @@ module.exports = class {
         value: summary,
       }]
 
-      argv.description = `Created by:  \n `
-
       providedFields.push({
         key: 'description',
         value: argv.description,

@@ -145,6 +145,6 @@ function getMatches (string, regex, index) {
   while (match = regex.exec(string)) {
     matches.push(match[index])
   }
-
+  console.log(matches)
   return matches
 }

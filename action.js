@@ -9,7 +9,7 @@ module.exports = class {
       baseUrl: config.baseUrl,
       token: config.token,
       email: config.email,
-      repo: githubEvent.repository
+      repo: githubEvent.repository,
     })
 
     this.GitHub = new GitHub({
@@ -58,6 +58,8 @@ module.exports = class {
 
       return
     }
+
+    const repoName = githubEvent.repository.split('/')[1]
 
     const issues = tasks.map(async ({ summary, commitUrl }) => {
       let providedFields = [{

@@ -129,7 +129,7 @@ module.exports = class {
 
           return {
             commitUrl: c.url,
-            summary: s,
+            summary: s + ' this is a long long long longlong long long long long long long long long long long long long long long long long long long long long string',
             description: `TODO: ${s} \n CommitURL: ${c.url} \n Created by: ${c.committer.name} \n Commit Message: ${c.message}`,
           }
         })

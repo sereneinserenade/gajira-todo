@@ -77,11 +77,6 @@ module.exports = class {
         value: summary,
       }]
 
-      providedFields.push({
-        key: 'description',
-        value: argv.description,
-      })
-
       if (argv.fields) {
         providedFields = [...providedFields, ...this.transformFields(argv.fields)]
       }
@@ -96,8 +91,6 @@ module.exports = class {
         },
       })
 
-      // payload[]
-
       return (await this.Jira.createIssue(payload)).key
     })
 
@@ -111,28 +104,21 @@ module.exports = class {
     }))
   }
 
-  preprocessArgs () {
-    _.templateSettings.interpolate = /{{([\s\S]+?)}}/g
-    const descriptionTmpl = _.template(this.argv.description)
-
-    this.argv.description = descriptionTmpl({ event: this.githubEvent })
-  }
-
   async findTodoInCommits (repo, commits) {
     return Promise.all(commits.map(async (c) => {
       const res = await this.GitHub.getCommitDiff(repo.full_name, c.id)
       // const fileName = res.split('\n')[0].split('/')[res.split('\n')[0].split('/').length - 1]
       const rx = /^\+.*(?:\/\/|#)\s+TODO:(.*)$/gm
 
-      this.argv.description = `CommitURL: ${c.url} \n Created by: ${c.committer.name} \n Commit Message: ${c.message}`
-
       return getMatches(res, rx, 1)
         .map(_.trim)
         .filter(Boolean)
         .map(s => ({
           commitUrl: c.url,
-          summary: `say something ${s} ${c}`,
+          summary: s,
+          description: `TODO: ${s} \n CommitURL: ${c.url} \\n Created by: ${c.committer.name} \\n Commit Message: ${c.message}`
         }))
+
     }))
   }
 }

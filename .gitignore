@@ -87,3 +87,4 @@ typings/
 .dynamodb/
 .idea
 try.js
+node_modules/

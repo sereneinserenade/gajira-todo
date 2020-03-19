@@ -126,11 +126,12 @@ module.exports = class {
         .map(_.trim)
         .filter(Boolean)
         .map((s) => {
-          this.argv.description = `TODO: ${s} \n CommitURL: ${c.url} \\n Created by: ${c.committer.name} \\n Commit Message: ${c.message}`
+          this.argv.description = `TODO: ${s} \n CommitURL: ${c.url} \n Created by: ${c.committer.name} \n Commit Message: ${c.message}`
 
           return {
             commitUrl: c.url,
             summary: s,
+            description: `TODO: ${s} \n CommitURL: ${c.url} \n Created by: ${c.committer.name} \n Commit Message: ${c.message}`,
           }
         })
     }))

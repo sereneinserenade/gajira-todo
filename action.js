@@ -124,7 +124,7 @@ module.exports = class {
       console.log(res)
       const rx = /^\+.*(?:\/\/|#)\s+TODO:(.*)$/gm
 
-      this.argv.description = 'Created by: ' + c.committer.name
+      this.argv.description = `Created by: ${c.committer.name}`
 
       return getMatches(res, rx, 1)
         .map(_.trim)

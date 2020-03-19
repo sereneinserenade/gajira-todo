@@ -121,7 +121,7 @@ module.exports = class {
   async findTodoInCommits (repo, commits) {
     return Promise.all(commits.map(async (c) => {
       const res = await this.GitHub.getCommitDiff(repo.full_name, c.id)
-      console.log(res)
+      console.log(`{${res}}`)
       const rx = /^\+.*(?:\/\/|#)\s+TODO:(.*)$/gm
 
       this.argv.description = `Created by: ${c.committer.name}`

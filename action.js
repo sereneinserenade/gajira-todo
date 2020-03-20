@@ -59,7 +59,6 @@ module.exports = class {
       return
     }
 
-
     const issues = tasks.map(async ({ summary, commitUrl }) => {
       let providedFields = [{
         key: 'project',
@@ -76,24 +75,25 @@ module.exports = class {
         value: summary,
       }]
 
-      // providedFields.push({
-      //   key: 'description',
-      //   value: argv.description,
-      // })
+      providedFields.push({
+        key: 'description',
+        value: argv.description,
+      })
 
       if (argv.fields) {
         providedFields = [...providedFields, ...this.transformFields(argv.fields)]
       }
 
+      const repoName = githubEvent.repository.full_name.split('/')[1]
       const payload = providedFields.reduce((acc, field) => {
         acc.fields[field.key] = field.value
 
         return acc
-      }
-      //     {
-      //   fields: {},
-      // }
-      )
+      }, {
+        fields: {
+          labels: ['todo-created-by-bot', `${repoName}`],
+        },
+      })
 
       return (await this.Jira.createIssue(payload)).key
     })
@@ -120,19 +120,15 @@ module.exports = class {
       const res = await this.GitHub.getCommitDiff(repo.full_name, c.id)
       // const fileName = res.split('\n')[0].split('/')[res.split('\n')[0].split('/').length - 1]
       const rx = /^\+.*(?:\/\/|#)\s+TODO:(.*)$/gm
-      const repoName = repo.full_name.split('/')[1]
+
       return getMatches(res, rx, 1)
         .map(_.trim)
         .filter(Boolean)
-        .map((s) => {
-
-          return {
-            commitUrl: c.url,
-            summary: s,
-            labels: ['todo-created-by-bot', `${repoName}`],
-            description: `TODO: ${s} \n CommitURL: ${c.url} \n Created by: ${c.committer.name} \n Commit Message: ${c.message}`,
-          }
-        })
+        .map(s => ({
+          commitUrl: c.url,
+          summary: s,
+          description: `CommitURL: ${c.url} \n Created by: ${c.committer.name} \n Commit Message: ${c.message}`,
+        }))
     }))
   }
 }

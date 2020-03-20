@@ -76,10 +76,10 @@ module.exports = class {
         value: summary,
       }]
 
-      providedFields.push({
-        key: 'description',
-        value: argv.description,
-      })
+      // providedFields.push({
+      //   key: 'description',
+      //   value: argv.description,
+      // })
 
       if (argv.fields) {
         providedFields = [...providedFields, ...this.transformFields(argv.fields)]

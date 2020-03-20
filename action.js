@@ -59,7 +59,6 @@ module.exports = class {
       return
     }
 
-    const repoName = githubEvent.repository.full_name.split('/')[1]
 
     const issues = tasks.map(async ({ summary, commitUrl }) => {
       let providedFields = [{
@@ -91,9 +90,7 @@ module.exports = class {
 
         return acc
       }, {
-        fields: {
-          labels: ['todo-created-by-bot', `${repoName}`],
-        },
+        fields: {},
       })
 
       return (await this.Jira.createIssue(payload)).key
@@ -121,7 +118,7 @@ module.exports = class {
       const res = await this.GitHub.getCommitDiff(repo.full_name, c.id)
       // const fileName = res.split('\n')[0].split('/')[res.split('\n')[0].split('/').length - 1]
       const rx = /^\+.*(?:\/\/|#)\s+TODO:(.*)$/gm
-
+      const repoName = repo.full_name.split('/')[1]
       return getMatches(res, rx, 1)
         .map(_.trim)
         .filter(Boolean)
@@ -129,7 +126,8 @@ module.exports = class {
 
           return {
             commitUrl: c.url,
-            summary: s + ' this is a long long long longlong long long long long long long long long long long long long long long long long long long long long string',
+            summary: s,
+            labels: ['todo-created-by-bot', `${repoName}`],
             description: `TODO: ${s} \n CommitURL: ${c.url} \n Created by: ${c.committer.name} \n Commit Message: ${c.message}`,
           }
         })

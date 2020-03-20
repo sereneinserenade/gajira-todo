@@ -89,9 +89,11 @@ module.exports = class {
         acc.fields[field.key] = field.value
 
         return acc
-      }, {
-        fields: {},
-      })
+      }
+      //     {
+      //   fields: {},
+      // }
+      )
 
       return (await this.Jira.createIssue(payload)).key
     })

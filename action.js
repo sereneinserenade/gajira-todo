@@ -121,13 +121,14 @@ module.exports = class {
       // const fileName = res.split('\n')[0].split('/')[res.split('\n')[0].split('/').length - 1]
       const rx = /^\+.*(?:\/\/|#)\s+TODO:(.*)$/gm
 
+      this.argv.description = `CommitURL: ${c.url} \n Created by: ${c.committer.name} \n Commit Message: ${c.message}`
+
       return getMatches(res, rx, 1)
         .map(_.trim)
         .filter(Boolean)
         .map(s => ({
           commitUrl: c.url,
           summary: s,
-          description: `CommitURL: ${c.url} \n Created by: ${c.committer.name} \n Commit Message: ${c.message}`,
         }))
     }))
   }

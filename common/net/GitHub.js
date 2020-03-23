@@ -29,7 +29,6 @@ class GitHub {
       pathname,
       query,
     })
-
     if (!method) {
       method = 'GET'
     }
